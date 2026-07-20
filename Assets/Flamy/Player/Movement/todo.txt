@@ -1,0 +1,46 @@
+ Core
+	PlayerStateManager
+		Core
+			Can Player Move Toogle
+			isGrounded
+		Move
+			isWalking
+
+Movement
+	PlayerWalk
+		Framerate Dependency
+		Diagonal Speed Bug
+		Edge-Case z kamerą skierowaną pionowo w dół/górę
+		Statyczne przypisanie kamery w Awake
+		Co jeszcze dodać?
+	PlayerRun
+	PlayerStamina
+	PlayerSlopeHandler
+
+	PlayerJump
+	PlayerAirControl
+	PlayerDash
+
+	PlayerCrouch
+	PlayerSlide
+	
+	PlayerLadder
+	PlayerVault (Wspinanie się przy krawędziach)
+	PlayerSwim
+
+	PlayerWallRun (and run)
+	PlayerGlider
+	PlayerGrapple (Haki)
+
+Camera
+	PlayerLook (Head Movement)
+	PlayerCameraEffect (Bobbing, Tilt, FOV)
+
+Audio & Visuals
+	PlayerAnimation
+	PlayerVFX
+	PlayerAudioManager
+	PlayerFootstepDetector
+
+Interactrions
+	PlayerInteraction
