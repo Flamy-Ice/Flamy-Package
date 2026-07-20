@@ -8,7 +8,6 @@
 
 Movement
 	PlayerWalk
-		Statyczne przypisanie kamery w Awake
 		Co jeszcze dodać?
 	PlayerRun
 	PlayerStamina

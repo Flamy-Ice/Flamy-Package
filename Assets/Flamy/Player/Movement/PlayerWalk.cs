@@ -28,11 +28,11 @@ public class PlayerWalk : MonoBehaviour
     {
         _playerController = GetComponent<PlayerController>();
         _playerData = GetComponent<PlayerData>();
+    }
 
-        if (cameraTransform == null && Camera.main != null)
-        {
-            cameraTransform = Camera.main.transform;
-        }
+    private void Start()
+    {
+        EnsureCameraReference();
     }
 
     private void Update()
@@ -87,9 +87,16 @@ public class PlayerWalk : MonoBehaviour
 
     private Vector3 CalculateCameraRelativeDirection(Vector2 input)
     {
+        // Lazy initialization fallback in case the camera was instantiated late
         if (cameraTransform == null)
         {
-            return new Vector3(input.x, 0f, input.y);
+            EnsureCameraReference();
+
+            // World-space fallback if no main camera is found in the scene
+            if (cameraTransform == null)
+            {
+                return new Vector3(input.x, 0f, input.y);
+            }
         }
 
         // Project camera vectors onto XZ plane
@@ -99,7 +106,7 @@ public class PlayerWalk : MonoBehaviour
         forward.y = 0f;
         right.y = 0f;
 
-        // Fallback for pitch pitch alignment edge-case (camera pointing straight down/up)
+        // Fallback for pitch alignment edge-case (camera pointing straight down/up)
         if (forward.sqrMagnitude < 0.001f)
         {
             // Use camera's UP vector as forward baseline when looking top-down
@@ -130,5 +137,13 @@ public class PlayerWalk : MonoBehaviour
         // Framerate-independent spherical interpolation factor
         float slerpFactor = 1f - Mathf.Exp(-rotationSpeed * Time.deltaTime);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, slerpFactor);
+    }
+
+    private void EnsureCameraReference()
+    {
+        if (cameraTransform == null && Camera.main != null)
+        {
+            cameraTransform = Camera.main.transform;
+        }
     }
 }
