@@ -99,6 +99,24 @@ public class PlayerWalk : MonoBehaviour
         forward.y = 0f;
         right.y = 0f;
 
+        // Fallback for pitch pitch alignment edge-case (camera pointing straight down/up)
+        if (forward.sqrMagnitude < 0.001f)
+        {
+            // Use camera's UP vector as forward baseline when looking top-down
+            forward = cameraTransform.up;
+            forward.y = 0f;
+
+            if (forward.sqrMagnitude < 0.001f)
+            {
+                forward = Vector3.forward;
+            }
+        }
+
+        if (right.sqrMagnitude < 0.001f)
+        {
+            right = Vector3.right;
+        }
+
         forward.Normalize();
         right.Normalize();
 

@@ -8,7 +8,6 @@
 
 Movement
 	PlayerWalk
-		Edge-Case z kamerą skierowaną pionowo w dół/górę
 		Statyczne przypisanie kamery w Awake
 		Co jeszcze dodać?
 	PlayerRun
