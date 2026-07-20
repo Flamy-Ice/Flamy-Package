@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Handles camera-relative horizontal movement, speed interpolation, and character rotation.
 /// </summary>
+
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerData))]
 public class PlayerWalk : MonoBehaviour
@@ -41,16 +42,31 @@ public class PlayerWalk : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
-        Vector2 input = _playerController.InputVector;
+        Vector2 rawInput = _playerController.InputVector;
+
+        // Clamp input magnitude to 1.0 to fix the diagonal speed bug (W+D moving 41% faster) 
+        // while maintaining smooth analog stick sensitivity for controllers.
+        Vector2 clampedInput = Vector2.ClampMagnitude(rawInput, 1f);
+        float inputMagnitude = clampedInput.magnitude;
 
         // Fetch move speed dynamically from PlayerData
         float moveSpeed = _playerData.MoveSpeed;
 
-        // Determine target movement speed based on input magnitude
-        float targetSpeed = input.sqrMagnitude < 0.01f ? 0f : moveSpeed;
+        // Determine target movement speed scaled by input strength
+        float targetSpeed = inputMagnitude < 0.01f ? 0f : moveSpeed * inputMagnitude;
 
         // Calculate 3D target direction based on camera view
-        Vector3 targetDirection = CalculateCameraRelativeDirection(input);
+        Vector3 targetDirection = CalculateCameraRelativeDirection(clampedInput);
+
+        // Normalize direction to ensure unit length regardless of camera alignment
+        if (targetDirection.sqrMagnitude > 0.01f)
+        {
+            targetDirection.Normalize();
+        }
+        else
+        {
+            targetDirection = Vector3.zero;
+        }
 
         // Calculate velocity target
         Vector3 targetVelocity = targetDirection * targetSpeed;
