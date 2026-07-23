@@ -11,5 +11,9 @@ public class PlayerStats : ScriptableObject
     [SerializeField, Tooltip("Base movement speed in units per second.")]
     private float moveSpeed = 5f;
 
+    [SerializeField, Tooltip("Sprint movement speed in units per second.")]
+    private float sprintSpeed = 8.5f;
+
     public float MoveSpeed => moveSpeed;
+    public float SprintSpeed => sprintSpeed;
 }

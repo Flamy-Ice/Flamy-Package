@@ -4,8 +4,8 @@ using UnityEngine;
 /// Handles camera-relative horizontal movement, independent acceleration/deceleration speed interpolation, and character rotation.
 /// </summary>
 
-[RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerData))]
+[RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerStateManager))]
 public class PlayerWalk : MonoBehaviour
 {
@@ -68,11 +68,11 @@ public class PlayerWalk : MonoBehaviour
         Vector2 clampedInput = Vector2.ClampMagnitude(rawInput, 1f);
         float inputMagnitude = clampedInput.magnitude;
 
-        // Fetch move speed dynamically from PlayerData
-        float moveSpeed = _playerData.MoveSpeed;
+        // Fetch active speed dynamically based on sprint state
+        float baseSpeed = _playerStateManager.IsSprinting ? _playerData.SprintSpeed : _playerData.MoveSpeed;
 
         // Determine target movement speed scaled by input strength
-        float targetSpeed = inputMagnitude < 0.01f ? 0f : moveSpeed * inputMagnitude;
+        float targetSpeed = inputMagnitude < 0.01f ? 0f : baseSpeed * inputMagnitude;
 
         // Calculate 3D target direction based on camera view
         Vector3 targetDirection = CalculateCameraRelativeDirection(clampedInput);

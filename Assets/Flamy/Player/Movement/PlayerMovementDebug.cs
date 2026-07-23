@@ -10,12 +10,11 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerStateManager))]
 [RequireComponent(typeof(PlayerData))]
-[RequireComponent(typeof(PlayerWalk))]
 public class PlayerMovementDebug : MonoBehaviour
 {
     private const float PanelMargin = 12f;
     private const float PanelWidth = 230f;
-    private const float PanelHeight = 200f;
+    private const float PanelHeight = 230f;
     private const int FontSize = 10;
 
     private PlayerController _playerController;
@@ -97,18 +96,28 @@ public class PlayerMovementDebug : MonoBehaviour
         Vector3 velocity = _playerController.Velocity;
         float horizontalSpeed = new Vector3(velocity.x, 0f, velocity.z).magnitude;
 
-        // Construct telemetry string with compact formatting
-        _stringBuilder.Append("<color=#61AFEF><b>[ MOVEMENT DEBUG ]</b></color> <color=#5C6370>").AppendFormat("{0:F0} FPS", fps).Append("</color>\n");
+        // Determine current move state label
+        string stateLabel = _playerStateManager.IsSprinting
+            ? "<color=#61AFEF>RUNNING</color>"
+            : (_playerStateManager.IsWalking ? "<color=#98C379>WALKING</color>" : "<color=#5C6370>IDLE</color>");
+
+        // Header & FPS
+        _stringBuilder.Append("<color=#00E5FF><b>[ MOVEMENT DEBUG ]</b></color> <color=#5C6370>").AppendFormat("{0:F0} FPS", fps).Append("</color>\n");
         _stringBuilder.Append("<color=#3E4451>----------------------------------------</color>\n");
 
-        _stringBuilder.Append("Can Move: ").Append(_playerStateManager.CanPlayerMove ? "<color=#98C379>TRUE</color>" : "<color=#E06C75>FALSE</color>").Append(" | ");
-        _stringBuilder.Append("Grounded: ").Append(_playerController.IsGrounded ? "<color=#98C379>TRUE</color>" : "<color=#E06C75>FALSE</color>").Append("\n");
-        _stringBuilder.Append("Is Walking: ").Append(_playerStateManager.IsWalking ? "<color=#98C379>TRUE</color>" : "<color=#5C6370>FALSE</color>").Append("\n\n");
+        // STATES
+        _stringBuilder.Append("<color=#A855F7><b>STATES</b></color>\n");
+        _stringBuilder.Append("State: ").Append(stateLabel).Append("\n");
+        _stringBuilder.Append("Is Grounded: ").Append(_playerController.IsGrounded ? "<color=#98C379>TRUE</color>" : "<color=#E06C75>FALSE</color>").Append("\n");
+        _stringBuilder.Append("Can Move: ").Append(_playerStateManager.CanPlayerMove ? "<color=#98C379>TRUE</color>" : "<color=#E06C75>FALSE</color>").Append("\n");
+        _stringBuilder.Append("Can Sprint: ").Append(_playerStateManager.CanPlayerSprint ? "<color=#98C379>TRUE</color>" : "<color=#E06C75>FALSE</color>").Append("\n\n");
 
-        _stringBuilder.Append("<color=#D19A66><b>INPUT & SPEED</b></color>\n");
+        // INPUT
+        _stringBuilder.Append("<color=#F59E0B><b>INPUT</b></color>\n");
         _stringBuilder.Append("Input: ").AppendFormat("({0:F2}, {1:F2})", _playerController.InputVector.x, _playerController.InputVector.y).Append("\n\n");
 
-        _stringBuilder.Append("<color=#E5C07B><b>VELOCITY</b></color>\n");
+        // VELOCITY
+        _stringBuilder.Append("<color=#3B82F6><b>VELOCITY</b></color>\n");
         _stringBuilder.Append("Horizontal: ").AppendFormat("{0:F2} m/s", horizontalSpeed).Append("\n");
         _stringBuilder.Append("Vertical: ").AppendFormat("{0:F2} m/s", velocity.y);
 

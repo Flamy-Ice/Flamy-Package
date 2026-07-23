@@ -13,6 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField, Tooltip("Direct reference to the Move action from an Input Actions asset.")]
     private InputActionReference moveAction;
 
+    [SerializeField, Tooltip("Direct reference to the Run action from an Input Actions asset.")]
+    private InputActionReference runAction;
+
     [Header("Gravity & Grounding")]
     [SerializeField, Tooltip("Force of gravity applied to the player.")]
     private float gravity = -19.62f;
@@ -23,6 +26,7 @@ public class PlayerController : MonoBehaviour
     // Public cached properties for modular movement components
     public CharacterController CharacterController { get; private set; }
     public Vector2 InputVector { get; private set; }
+    public InputActionReference RunAction => runAction;
     public Vector3 Velocity => _finalVelocity;
     public bool IsGrounded { get; private set; }
 
@@ -41,6 +45,11 @@ public class PlayerController : MonoBehaviour
         {
             moveAction.action.Enable();
         }
+
+        if (runAction != null)
+        {
+            runAction.action.Enable();
+        }
     }
 
     private void OnDisable()
@@ -48,6 +57,11 @@ public class PlayerController : MonoBehaviour
         if (moveAction != null)
         {
             moveAction.action.Disable();
+        }
+
+        if (runAction != null)
+        {
+            runAction.action.Disable();
         }
     }
 

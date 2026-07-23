@@ -593,12 +593,13 @@ GameObject:
   - component: {fileID: 1017842239}
   - component: {fileID: 1017842238}
   - component: {fileID: 1017842237}
+  - component: {fileID: 1017842241}
+  - component: {fileID: 1017842242}
   - component: {fileID: 1017842240}
+  - component: {fileID: 1017842245}
   - component: {fileID: 1017842244}
   - component: {fileID: 1017842243}
-  - component: {fileID: 1017842242}
-  - component: {fileID: 1017842241}
-  - component: {fileID: 1017842245}
+  - component: {fileID: 1017842246}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -681,7 +682,23 @@ Transform:
   - {fileID: 1683068071}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!143 &1017842240
+--- !u!114 &1017842240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017842235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b0d618597bdac10469c1a8913941c331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  moveAction: {fileID: -8509836360380789691, guid: 2c39baf9e0fa846418d6190b8c3ef9d4, type: 3}
+  runAction: {fileID: -173377061073425588, guid: 2c39baf9e0fa846418d6190b8c3ef9d4, type: 3}
+  gravity: -19.62
+  groundedForce: -2
+--- !u!143 &1017842241
 CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -706,7 +723,33 @@ CharacterController:
   m_SkinWidth: 0.02
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1017842241
+--- !u!114 &1017842242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017842235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b47324c8cdd70429441d5865e97a37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerData
+  reference: {fileID: 11400000, guid: e93495d05419dd742a2e9f8ae5b7f543, type: 2}
+--- !u!114 &1017842243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017842235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2c9b329545deef4baf5fa84880ddd7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerRun
+  inputMode: 0
+--- !u!114 &1017842244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -722,35 +765,7 @@ MonoBehaviour:
   deceleration: 16
   rotationSpeed: 15
   cameraTransform: {fileID: 1823688467}
---- !u!114 &1017842242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1017842235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0d618597bdac10469c1a8913941c331, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveAction: {fileID: -8509836360380789691, guid: 2c39baf9e0fa846418d6190b8c3ef9d4, type: 3}
-  gravity: -19.62
-  groundedForce: -2
---- !u!114 &1017842243
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1017842235}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e2b47324c8cdd70429441d5865e97a37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerData
-  reference: {fileID: 11400000, guid: e93495d05419dd742a2e9f8ae5b7f543, type: 2}
---- !u!114 &1017842244
+--- !u!114 &1017842245
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -763,8 +778,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStateManager
   canPlayerMove: 1
+  canPlayerSprint: 1
   isWalking: 0
---- !u!114 &1017842245
+  isSprinting: 0
+--- !u!114 &1017842246
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
