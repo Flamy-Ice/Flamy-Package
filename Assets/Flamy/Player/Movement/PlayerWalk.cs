@@ -4,9 +4,9 @@ using UnityEngine;
 /// Handles camera-relative horizontal movement, independent acceleration/deceleration speed interpolation, and character rotation.
 /// </summary>
 
-[RequireComponent(typeof(PlayerData))]
-[RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerStateManager))]
+[RequireComponent(typeof(PlayerData))]
+
 public class PlayerWalk : MonoBehaviour
 {
     [Header("Movement Settings")]

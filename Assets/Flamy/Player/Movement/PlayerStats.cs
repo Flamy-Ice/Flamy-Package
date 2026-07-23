@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "Player/Player Stats")]
+
 public class PlayerStats : ScriptableObject
 {
     [Header("Movement Settings")]

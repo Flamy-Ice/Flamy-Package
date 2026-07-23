@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerStateManager))]
-[RequireComponent(typeof(PlayerData))]
+
 public class PlayerMovementDebug : MonoBehaviour
 {
     private const float PanelMargin = 12f;

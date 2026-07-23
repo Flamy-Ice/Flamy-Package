@@ -5,6 +5,7 @@ using UnityEngine;
 /// </summary>
 
 [RequireComponent(typeof(PlayerController))]
+
 public class PlayerStateManager : MonoBehaviour
 {
     [Header("Core")]

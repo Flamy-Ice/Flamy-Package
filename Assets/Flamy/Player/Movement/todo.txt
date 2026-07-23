@@ -1,6 +1,10 @@
 Movement
 	PlayerRun
+		Sprint Angle Check
+
 		Co jeszcze dodać?
+		Przesyłam ci mój skrypt PlayerRun, chciałbym abyś rozpisał mi czy coś powinienem jeszcze dodać do tego skryptu aby był jak najbardziej profesjonalny. Nie pisz kodu tylko daj propozycję.
+
 	PlayerStamina
 	PlayerSlopeHandler
 

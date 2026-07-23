@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 
 [RequireComponent(typeof(CharacterController))]
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Input Settings")]
