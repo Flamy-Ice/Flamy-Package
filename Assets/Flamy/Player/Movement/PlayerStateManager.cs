@@ -3,6 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Central manager for tracking and toggling player movement states and permissions.
 /// </summary>
+
 [RequireComponent(typeof(PlayerController))]
 public class PlayerStateManager : MonoBehaviour
 {

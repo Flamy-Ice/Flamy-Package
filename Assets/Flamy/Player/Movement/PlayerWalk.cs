@@ -1,16 +1,20 @@
 using UnityEngine;
 
 /// <summary>
-/// Handles camera-relative horizontal movement, speed interpolation, and character rotation.
+/// Handles camera-relative horizontal movement, independent acceleration/deceleration speed interpolation, and character rotation.
 /// </summary>
+
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerData))]
 [RequireComponent(typeof(PlayerStateManager))]
 public class PlayerWalk : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField, Tooltip("Sharpness of movement acceleration and deceleration.")]
+    [SerializeField, Tooltip("Sharpness of movement acceleration when speeding up or changing direction.")]
     private float acceleration = 12f;
+
+    [SerializeField, Tooltip("Sharpness of movement deceleration when stopping or releasing input.")]
+    private float deceleration = 16f;
 
     [Header("Rotation")]
     [SerializeField, Tooltip("Speed at which the character rotates towards movement direction.")]
@@ -19,6 +23,10 @@ public class PlayerWalk : MonoBehaviour
     [Header("References")]
     [SerializeField, Tooltip("Camera transform used to calculate directional movement. Defaults to Main Camera if unassigned.")]
     private Transform cameraTransform;
+
+    // Public properties for external reading (e.g., debug overlay)
+    public float Acceleration => acceleration;
+    public float Deceleration => deceleration;
 
     private PlayerController _playerController;
     private PlayerData _playerData;
@@ -44,10 +52,10 @@ public class PlayerWalk : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
-        // Stop movement processing if the player state disables movement
+        // Stop movement processing using deceleration rate if movement is disabled
         if (!_playerStateManager.CanPlayerMove)
         {
-            float stopFactor = 1f - Mathf.Exp(-acceleration * Time.deltaTime);
+            float stopFactor = 1f - Mathf.Exp(-deceleration * Time.deltaTime);
             _currentHorizontalVelocity = Vector3.Lerp(_currentHorizontalVelocity, Vector3.zero, stopFactor);
             _playerController.SetHorizontalVelocity(_currentHorizontalVelocity);
             return;
@@ -82,8 +90,13 @@ public class PlayerWalk : MonoBehaviour
         // Calculate velocity target
         Vector3 targetVelocity = targetDirection * targetSpeed;
 
+        // Apply acceleration rate when speeding up, deceleration rate when slowing down or stopping
+        float currentRate = (targetVelocity.sqrMagnitude > _currentHorizontalVelocity.sqrMagnitude)
+            ? acceleration
+            : deceleration;
+
         // Framerate-independent exponential interpolation factor
-        float lerpFactor = 1f - Mathf.Exp(-acceleration * Time.deltaTime);
+        float lerpFactor = 1f - Mathf.Exp(-currentRate * Time.deltaTime);
         _currentHorizontalVelocity = Vector3.Lerp(_currentHorizontalVelocity, targetVelocity, lerpFactor);
 
         // Pass calculated movement vector back to the main controller

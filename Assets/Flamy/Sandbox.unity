@@ -594,9 +594,11 @@ GameObject:
   - component: {fileID: 1017842238}
   - component: {fileID: 1017842237}
   - component: {fileID: 1017842240}
+  - component: {fileID: 1017842244}
   - component: {fileID: 1017842243}
   - component: {fileID: 1017842242}
   - component: {fileID: 1017842241}
+  - component: {fileID: 1017842245}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -717,6 +719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerWalk
   acceleration: 12
+  deceleration: 16
   rotationSpeed: 15
   cameraTransform: {fileID: 1823688467}
 --- !u!114 &1017842242
@@ -747,6 +750,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerData
   reference: {fileID: 11400000, guid: e93495d05419dd742a2e9f8ae5b7f543, type: 2}
+--- !u!114 &1017842244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017842235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf462a0d59ecdb43af651d57e80b8ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStateManager
+  canPlayerMove: 1
+  isWalking: 0
+--- !u!114 &1017842245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1017842235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b6e75395c56bf249917541e85772db4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerMovementDebug
 --- !u!1 &1683068070
 GameObject:
   m_ObjectHideFlags: 0
