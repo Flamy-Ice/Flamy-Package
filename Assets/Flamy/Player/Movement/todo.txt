@@ -1,17 +1,11 @@
- Core
-	PlayerStateManager
-		Core
-			Can Player Move Toogle
-			isGrounded
-		Move
-			isWalking
+DEBUG
 
 Movement
 	PlayerRun
 	PlayerStamina
 	PlayerSlopeHandler
 
-	PlayerJump
+	PlayerJump (PlayerStateManager - isGrounded)
 	PlayerAirControl
 	PlayerDash
 
@@ -38,5 +32,3 @@ Audio & Visuals
 
 Interactrions
 	PlayerInteraction
-
-Debug

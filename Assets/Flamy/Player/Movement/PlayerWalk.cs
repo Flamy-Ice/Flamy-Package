@@ -3,17 +3,14 @@ using UnityEngine;
 /// <summary>
 /// Handles camera-relative horizontal movement, speed interpolation, and character rotation.
 /// </summary>
-
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerData))]
+[RequireComponent(typeof(PlayerStateManager))]
 public class PlayerWalk : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField, Tooltip("Sharpness of movement acceleration when gaining speed.")]
+    [SerializeField, Tooltip("Sharpness of movement acceleration and deceleration.")]
     private float acceleration = 12f;
-
-    [SerializeField, Tooltip("Sharpness of movement deceleration when slowing down or stopping.")]
-    private float deceleration = 16f;
 
     [Header("Rotation")]
     [SerializeField, Tooltip("Speed at which the character rotates towards movement direction.")]
@@ -25,12 +22,14 @@ public class PlayerWalk : MonoBehaviour
 
     private PlayerController _playerController;
     private PlayerData _playerData;
+    private PlayerStateManager _playerStateManager;
     private Vector3 _currentHorizontalVelocity;
 
     private void Awake()
     {
-        _playerController = GetComponent<PlayerController>();
         _playerData = GetComponent<PlayerData>();
+        _playerStateManager = GetComponent<PlayerStateManager>();
+        _playerController = GetComponent<PlayerController>();
     }
 
     private void Start()
@@ -45,6 +44,15 @@ public class PlayerWalk : MonoBehaviour
 
     private void HandleHorizontalMovement()
     {
+        // Stop movement processing if the player state disables movement
+        if (!_playerStateManager.CanPlayerMove)
+        {
+            float stopFactor = 1f - Mathf.Exp(-acceleration * Time.deltaTime);
+            _currentHorizontalVelocity = Vector3.Lerp(_currentHorizontalVelocity, Vector3.zero, stopFactor);
+            _playerController.SetHorizontalVelocity(_currentHorizontalVelocity);
+            return;
+        }
+
         Vector2 rawInput = _playerController.InputVector;
 
         // Clamp input magnitude to 1.0 to fix the diagonal speed bug (W+D moving 41% faster) 
@@ -74,11 +82,8 @@ public class PlayerWalk : MonoBehaviour
         // Calculate velocity target
         Vector3 targetVelocity = targetDirection * targetSpeed;
 
-        // Select acceleration or deceleration depending on whether target speed exceeds current velocity magnitude
-        float currentRate = targetSpeed > _currentHorizontalVelocity.magnitude ? acceleration : deceleration;
-
         // Framerate-independent exponential interpolation factor
-        float lerpFactor = 1f - Mathf.Exp(-currentRate * Time.deltaTime);
+        float lerpFactor = 1f - Mathf.Exp(-acceleration * Time.deltaTime);
         _currentHorizontalVelocity = Vector3.Lerp(_currentHorizontalVelocity, targetVelocity, lerpFactor);
 
         // Pass calculated movement vector back to the main controller
