@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d786b33b313af24b8dfca00510fef05, type: 3}
-  m_Name: TestCharacter
+  m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   moveSpeed: 5

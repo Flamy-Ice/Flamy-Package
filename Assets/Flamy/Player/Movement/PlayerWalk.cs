@@ -9,8 +9,11 @@ using UnityEngine;
 public class PlayerWalk : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField, Tooltip("Sharpness of movement acceleration and deceleration.")]
+    [SerializeField, Tooltip("Sharpness of movement acceleration when gaining speed.")]
     private float acceleration = 12f;
+
+    [SerializeField, Tooltip("Sharpness of movement deceleration when slowing down or stopping.")]
+    private float deceleration = 16f;
 
     [Header("Rotation")]
     [SerializeField, Tooltip("Speed at which the character rotates towards movement direction.")]
@@ -71,8 +74,11 @@ public class PlayerWalk : MonoBehaviour
         // Calculate velocity target
         Vector3 targetVelocity = targetDirection * targetSpeed;
 
+        // Select acceleration or deceleration depending on whether target speed exceeds current velocity magnitude
+        float currentRate = targetSpeed > _currentHorizontalVelocity.magnitude ? acceleration : deceleration;
+
         // Framerate-independent exponential interpolation factor
-        float lerpFactor = 1f - Mathf.Exp(-acceleration * Time.deltaTime);
+        float lerpFactor = 1f - Mathf.Exp(-currentRate * Time.deltaTime);
         _currentHorizontalVelocity = Vector3.Lerp(_currentHorizontalVelocity, targetVelocity, lerpFactor);
 
         // Pass calculated movement vector back to the main controller

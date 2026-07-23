@@ -7,8 +7,6 @@
 			isWalking
 
 Movement
-	PlayerWalk
-		Co jeszcze dodać?
 	PlayerRun
 	PlayerStamina
 	PlayerSlopeHandler
@@ -40,3 +38,5 @@ Audio & Visuals
 
 Interactrions
 	PlayerInteraction
+
+Debug
