@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStats
   moveSpeed: 5
+  sprintSpeed: 8.5

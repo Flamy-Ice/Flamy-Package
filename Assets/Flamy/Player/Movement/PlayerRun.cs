@@ -11,6 +11,7 @@ using UnityEditor;
 
 [RequireComponent(typeof(PlayerController))]
 [RequireComponent(typeof(PlayerStateManager))]
+[RequireComponent(typeof(PlayerWalk))]
 
 public class PlayerRun : MonoBehaviour
 {

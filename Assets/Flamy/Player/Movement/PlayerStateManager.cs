@@ -3,9 +3,7 @@ using UnityEngine;
 /// <summary>
 /// Central manager for tracking and toggling player movement states and permissions.
 /// </summary>
-
 [RequireComponent(typeof(PlayerController))]
-
 public class PlayerStateManager : MonoBehaviour
 {
     [Header("Core")]
@@ -15,11 +13,7 @@ public class PlayerStateManager : MonoBehaviour
     [SerializeField, Tooltip("Determines whether the player is allowed to sprint.")]
     private bool canPlayerSprint = true;
 
-    [Header("States")]
-    [SerializeField, Tooltip("Indicates whether the character is currently walking horizontally at base speed.")]
     private bool isWalking;
-
-    [SerializeField, Tooltip("Indicates whether the character is currently sprinting.")]
     private bool isSprinting;
 
     // Public properties for clean external reading and state toggling
