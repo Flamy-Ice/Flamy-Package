@@ -1,10 +1,8 @@
-DEBUG - PlayerStateManager
-
 Movement
 	PlayerStamina
 	PlayerSlopeHandlerer
 
-	PlayerJump (PlayerStateManager - isGrounded)
+	PlayerJump
 	PlayerAirControl
 	PlayerDash
 
